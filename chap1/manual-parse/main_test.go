@@ -96,7 +96,7 @@ func TestApplication(t *testing.T) {
 	}
 	byteBuf := new(bytes.Buffer)
 	for _, tc := range tests {
-		t.Logf("Executing:%v %v\n", binaryPath, tc.args)
+		t.Logf("Executing:%v\n", binaryPath)
 		cmd := exec.CommandContext(ctx, binaryPath, tc.args...)
 		cmd.Stdout = byteBuf
 		if len(tc.input) != 0 {
@@ -118,7 +118,7 @@ func TestApplication(t *testing.T) {
 		lines := strings.Split(output, "\n")
 		for num := range tc.expectedOutputLines {
 			if lines[num] != tc.expectedOutputLines[num] {
-				t.Fatalf("Expected output line to be:%v, Got:%v", tc.expectedOutputLines[num], lines[num])
+				t.Fatalf("Expected output line to be:%v, Got:%v", len(tc.expectedOutputLines[num]), len(lines[num]))
 			}
 		}
 		byteBuf.Reset()
